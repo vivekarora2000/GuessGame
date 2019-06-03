@@ -1,5 +1,5 @@
 from random import randint
-a = randint(1,100)
+a = randint(1,10)
 print("WELCOME TO GUESS ME!")
 print("I'm thinking of a number between 1 and 100")
 print("If your guess is more than 10 away from my number, I'll tell you you're COLD")
@@ -9,22 +9,26 @@ print("If your guess is closer than your most recent guess, I'll say you're gett
 print("LET'S PLAY!")
 guess=[]
 while True:
-    g=int(input('Enter Guess:'))
-    guess.append(g)
-   
-    if a==g:
-            print('Got it ')
-            break
-    if (abs(a-g)<=10):
-            print('Warm')
-    if (abs(a-g)>10):
-            print('Cold') 
+    g= int(input("I'm thinking of a number between 1 and 100.\n  What is your guess? "))
     
-    if (len(guess)>1):
-        b=guess[-2]
-        if(abs(a-g)<abs(a-b)):
-            print('Warmer')
-        if(abs(a-g)>abs(a-b)):
-            print('Colder')
-    pass
-print(len(guess))
+    if g < 1 or g > 100:
+        print('OUT OF BOUNDS! Please try again: ')
+        continue
+    
+    if g == a:
+        print(f'CONGRATULATIONS, YOU GUESSED IT IN ONLY {len(guess)} GUESSES!!')
+        break
+
+    guess.append(g)
+
+    if len(guess)>1 and guess[-2]:  
+        if abs(a-g) < abs(a-guess[-2]):
+            print('WARMER!')
+        else:
+            print('COLDER!')
+   
+    else:
+        if abs(a-g) <= 10:
+            print('WARM!')
+        else:
+            print('COLD!')
